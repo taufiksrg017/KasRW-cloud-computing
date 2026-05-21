@@ -1,0 +1,44 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum JenisTransaksi {
+  PEMASUKAN
+  PENGELUARAN
+}
+
+model Admin {
+  id         Int      @id @default(autoincrement())
+  nama       String   @db.VarChar(100)
+  username   String   @unique @db.VarChar(50)
+  password   String   @db.VarChar(255)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  transaksi Transaksi[]
+
+  @@map("admin")
+}
+
+model Transaksi {
+  id          Int            @id @default(autoincrement())
+  admin_id    Int
+  jenis       JenisTransaksi
+  nominal     BigInt
+  keterangan  String         @db.Text
+  tanggal     DateTime       @db.Timestamp(6)
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @updatedAt
+
+  admin Admin @relation(fields: [admin_id], references: [id], onDelete: Restrict)
+
+  @@index([tanggal])
+  @@index([jenis])
+  @@map("transaksi")
+}
