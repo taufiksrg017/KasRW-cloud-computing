@@ -1,82 +1,102 @@
-<div align="center">
-
 # KasRW
 
-### Digital RT/RW Cash Management System
-
-A cloud-based financial management application for RT/RW organizations, built with modern web technologies and deployed on Amazon Web Services (AWS).
+> **Cloud-Based RT/RW Financial Management System**
+>
+> Final Project — Cloud Computing Course  
+> Faculty of Electrical Engineering, Telkom University
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-20-339933?logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-5-black)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?logo=postgresql&logoColor=white)
-![AWS EC2](https://img.shields.io/badge/AWS-EC2-FF9900?logo=amazonaws&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma)
+![AWS](https://img.shields.io/badge/AWS-EC2-FF9900?logo=amazonaws&logoColor=white)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04-E95420?logo=ubuntu&logoColor=white)
-![Nginx](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white)
-![PM2](https://img.shields.io/badge/PM2-2B037A?logo=pm2&logoColor=white)
 
-</div>
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [System Architecture](#system-architecture)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Installation Guide](#installation-guide)
+- [Deployment](#deployment)
+- [REST API Overview](#rest-api-overview)
+- [Application Screenshots](#application-screenshots)
+- [Learning Outcomes](#learning-outcomes)
+- [Future Improvements](#future-improvements)
+- [Team Members](#team-members)
+- [Repository](#repository)
+- [License](#license)
 
 ---
 
 # Overview
 
-KasRW is a cloud-based web application designed to simplify financial management for neighborhood organizations (RT/RW).
+KasRW is a cloud-based financial management system developed to assist RT/RW organizations in managing their financial transactions efficiently, transparently, and securely.
 
-The application enables administrators to manage income, expenses, and financial reports through a modern web interface while utilizing cloud infrastructure for reliability and scalability.
+The application provides a modern web interface that enables administrators to record income, expenses, monitor cash balance, and generate financial reports. Residents can also access transparent financial information through the system.
 
-This project was developed as the **Final Project for the Cloud Computing Course** at **Telkom University**.
+This project was developed as the Final Project for the **Cloud Computing Course** at **Telkom University**, emphasizing cloud deployment, backend development, RESTful APIs, and Linux server administration using Amazon Web Services (AWS).
 
 ---
 
-# Key Features
+# Features
 
-- Secure User Authentication
-- Dashboard Overview
-- Income Management
-- Expense Management
-- Cash Balance Monitoring
-- Financial Reports
-- Transaction History
-- RESTful API
-- Responsive User Interface
-- Cloud Deployment using AWS EC2
+- Secure administrator authentication using JWT
+- Dashboard with financial summary
+- Income transaction management
+- Expense transaction management
+- Cash balance monitoring
+- Financial reporting
+- Transaction history
+- RESTful API architecture
+- Responsive web interface
+- Cloud deployment on AWS EC2
 
 ---
 
 # System Architecture
 
-```text
-                   Client Browser
-                          │
-                          ▼
-                React + Vite Frontend
-                          │
-                 HTTP / REST API
-                          │
-                          ▼
-               Express.js Backend API
-                          │
-                     Prisma ORM
-                          │
-                          ▼
-                  PostgreSQL Database
+```
+                           Internet
+                               │
+                               ▼
+                        Client Browser
+                               │
+                               ▼
+                     Nginx Reverse Proxy
+                               │
+          ┌────────────────────┴────────────────────┐
+          │                                         │
+          ▼                                         ▼
+ React + Vite Frontend                 Express.js REST API
+                                                  │
+                                                  ▼
+                                            Prisma ORM
+                                                  │
+                                                  ▼
+                                          PostgreSQL Database
+                                                  │
+                                                  ▼
+                                           AWS EC2 Ubuntu
 ```
 
 ---
 
 # Technology Stack
 
-| Layer | Technology |
-|--------|------------|
-| Frontend | React 18 |
-| Build Tool | Vite |
+| Category | Technology |
+|------------|-----------------------------|
+| Frontend | React 18 + Vite |
 | Styling | Tailwind CSS |
-| Backend | Node.js |
-| Framework | Express.js |
-| ORM | Prisma |
+| Backend | Node.js + Express.js |
 | Database | PostgreSQL 15 |
+| ORM | Prisma ORM |
+| Authentication | JSON Web Token (JWT) |
 | Reverse Proxy | Nginx |
 | Process Manager | PM2 |
 | Operating System | Ubuntu Server 24.04 LTS |
@@ -87,22 +107,28 @@ This project was developed as the **Final Project for the Cloud Computing Course
 
 # Project Structure
 
-```text
+```
 KasRW-cloud-computing
 │
 ├── backend
 │   ├── prisma
-│   ├── controllers
-│   ├── routes
-│   ├── middleware
+│   ├── src
+│   │   ├── controllers
+│   │   ├── middleware
+│   │   ├── routes
+│   │   ├── services
+│   │   └── utils
 │   ├── package.json
-│   └── ...
+│   └── server.js
 │
 ├── frontend
-│   ├── src
 │   ├── public
-│   ├── package.json
-│   └── ...
+│   ├── src
+│   │   ├── assets
+│   │   ├── components
+│   │   ├── pages
+│   │   └── services
+│   └── package.json
 │
 ├── backup_data.sql
 ├── README.md
@@ -111,26 +137,25 @@ KasRW-cloud-computing
 
 ---
 
-# Installation
+# Installation Guide
 
-## Clone Repository
+## 1. Clone Repository
 
 ```bash
 git clone https://github.com/taufiksrg017/KasRW-cloud-computing.git
-```
 
-```bash
 cd KasRW-cloud-computing
 ```
 
 ---
 
-# Backend Setup
+## 2. Backend Setup
 
 Install dependencies
 
 ```bash
 cd backend
+
 npm install
 ```
 
@@ -144,13 +169,13 @@ JWT_SECRET=
 PORT=3001
 ```
 
-Run migration
+Run database migration
 
 ```bash
 npx prisma migrate deploy
 ```
 
-Run backend
+Start backend
 
 ```bash
 npm run dev
@@ -158,16 +183,13 @@ npm run dev
 
 ---
 
-# Frontend Setup
+## 3. Frontend Setup
 
 ```bash
-cd frontend
+cd ../frontend
+
 npm install
-```
 
-Run frontend
-
-```bash
 npm run dev
 ```
 
@@ -175,101 +197,111 @@ npm run dev
 
 # Deployment
 
-This application was deployed using:
+The application was deployed on **Amazon Web Services (AWS)** using the following infrastructure:
 
 - Amazon EC2
 - Ubuntu Server 24.04 LTS
 - Nginx Reverse Proxy
 - PM2 Process Manager
-- PostgreSQL
+- PostgreSQL Database
 - Prisma ORM
 
+Deployment architecture enables reliable hosting, process management, and scalable web service delivery.
+
 ---
 
-# API Overview
+# REST API Overview
 
 | Method | Endpoint | Description |
-|---------|----------|-------------|
-| POST | `/api/auth/login` | User Login |
-| GET | `/api/dashboard` | Dashboard Data |
-| GET | `/api/income` | Get Income |
-| POST | `/api/income` | Add Income |
-| GET | `/api/expense` | Get Expense |
-| POST | `/api/expense` | Add Expense |
+|----------|--------------------------|---------------------------|
+| POST | /api/auth/login | User Login |
+| GET | /api/dashboard | Dashboard Summary |
+| GET | /api/income | Get Income Data |
+| POST | /api/income | Add Income |
+| GET | /api/expense | Get Expense Data |
+| POST | /api/expense | Add Expense |
+| GET | /api/report | Generate Financial Report |
 
-> Update this table according to your actual API routes.
+> **Note:** Update this table according to the actual API routes implemented in the backend.
 
 ---
 
-# Screenshots
+# Application Screenshots
 
 ## Login Page
 
-```
+*(Insert Screenshot Here)*
+
 ---
-```
 
 ## Dashboard
 
-```
+*(Insert Screenshot Here)*
+
 ---
-```
 
 ## Income Management
 
-```
+*(Insert Screenshot Here)*
+
 ---
-```
 
 ## Expense Management
 
-```
----
-```
+*(Insert Screenshot Here)*
 
-## Reports
-
-```
 ---
-```
+
+## Financial Report
+
+*(Insert Screenshot Here)*
+
+---
+
+## AWS EC2 Deployment
+
+*(Insert Screenshot Here)*
 
 ---
 
 # Learning Outcomes
 
-This project demonstrates practical implementation of:
+Through this project, the development team gained practical experience in:
 
-- Cloud Computing
-- AWS EC2 Deployment
+- Cloud Computing Deployment
+- Amazon EC2 Management
 - Linux Server Administration
-- Nginx Reverse Proxy
-- PM2 Process Management
-- REST API Development
-- PostgreSQL Database
-- Prisma ORM
-- React Development
+- Reverse Proxy Configuration using Nginx
+- Process Management using PM2
+- RESTful API Development
+- PostgreSQL Database Management
+- Prisma ORM Integration
+- React Single Page Application Development
 - Express.js Backend Development
+- Git & GitHub Collaboration
 
 ---
 
 # Future Improvements
 
+Future enhancements planned for this project include:
+
 - JWT Refresh Token
-- Docker Deployment
-- CI/CD using GitHub Actions
-- HTTPS with SSL Certificate
+- Docker Containerization
+- GitHub Actions CI/CD Pipeline
+- HTTPS using SSL Certificate
 - Automated Database Backup
 - Multi-user Role Management
-- Dashboard Analytics
-- Unit & Integration Testing
+- Financial Analytics Dashboard
+- Unit Testing & Integration Testing
 
 ---
 
-# Team
+# Team Members
 
 | Name | Role |
 |------|------|
-| Taufik Hidayat Siregar | Full Stack Developer |
+| **Taufik Hidayat Siregar** | Full Stack Developer |
 | Wina Permata Sari Manurung | Backend Developer |
 | Muhammad Fakhril Miqdad | Frontend Developer |
 
@@ -285,12 +317,4 @@ https://github.com/taufiksrg017/KasRW-cloud-computing
 
 # License
 
-This project was developed for educational purposes as part of the Cloud Computing course at Telkom University.
-
----
-
-<div align="center">
-
-Made with ❤️ using React, Node.js, PostgreSQL, Prisma and AWS EC2.
-
-</div>
+This project was developed for educational purposes as the Final Project for the Cloud Computing course at **Telkom University**.
