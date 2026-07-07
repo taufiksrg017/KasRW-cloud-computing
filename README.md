@@ -230,37 +230,37 @@ Deployment architecture enables reliable hosting, process management, and scalab
 
 ## Login Page
 
-*(Insert Screenshot Here)*
+-
 
 ---
 
 ## Dashboard
 
-*(Insert Screenshot Here)*
+-
 
 ---
 
 ## Income Management
 
-*(Insert Screenshot Here)*
+-
 
 ---
 
 ## Expense Management
 
-*(Insert Screenshot Here)*
+-
 
 ---
 
 ## Financial Report
 
-*(Insert Screenshot Here)*
+-
 
 ---
 
 ## AWS EC2 Deployment
 
-*(Insert Screenshot Here)*
+-
 
 ---
 
