@@ -206,31 +206,31 @@ This application was deployed using:
 ## Login Page
 
 ```
-Add login screenshot here
+---
 ```
 
 ## Dashboard
 
 ```
-Add dashboard screenshot here
+---
 ```
 
 ## Income Management
 
 ```
-Add income page screenshot here
+---
 ```
 
 ## Expense Management
 
 ```
-Add expense page screenshot here
+---
 ```
 
 ## Reports
 
 ```
-Add report screenshot here
+---
 ```
 
 ---
